@@ -1,59 +1,47 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 // import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CreateIcon from '@material-ui/icons/Create';
-import {sidebarItemsData} from '../data/SidebarData';
+import { sidebarItemsData } from '../data/SidebarData';
 import AddIcon from '@material-ui/icons/Add';
 
-function Sidebar() {
-    return (
-        <Container>
-            <WorkspaceContainer>
-                <Name>
-                    Henton_Workspace
-                </Name>
-                <NewMessage>
-                  <CreateIcon />
-                </NewMessage>
-            </WorkspaceContainer>
-            <MainChannels>
-                {
-                    sidebarItemsData.map(item => (
-                    <MainChannelItem>
-                    {item.icon}
-                    {item.text}
-                </MainChannelItem>
-                    ))
-                }
-                
-            </MainChannels>
-            <ChannelsContainer>
-                <NewChannelContainer>
-                    <div>
-                        Channels
-                    </div>
-                    <AddIcon />
-                </NewChannelContainer>
-                <ChannelsList>
-                    <Channel>
-                      # Channel 1
-                    </Channel>
-                    <Channel>
-                      # Channel 2
-                    </Channel>
-                </ChannelsList>
-                
-            </ChannelsContainer>
-        </Container>
-    )
+function Sidebar(props) {
+  return (
+    <Container>
+      <WorkspaceContainer>
+        <Name>Henton_Workspace</Name>
+        <NewMessage>
+          <CreateIcon />
+        </NewMessage>
+      </WorkspaceContainer>
+      <MainChannels>
+        {sidebarItemsData.map((item) => (
+          <MainChannelItem>
+            {item.icon}
+            {item.text}
+          </MainChannelItem>
+        ))}
+      </MainChannels>
+      <ChannelsContainer>
+        <NewChannelContainer>
+          <div>Channels</div>
+          <AddIcon />
+        </NewChannelContainer>
+        <ChannelsList>
+          {props.rooms.map((item) => (
+            <Channel># {item.name}</Channel>
+          ))}
+        </ChannelsList>
+      </ChannelsContainer>
+    </Container>
+  );
 }
 
-export default Sidebar
-
+export default Sidebar;
 
 const Container = styled.div`
-  background: #3F0E40;
-`
+  background: #3f0e40;
+`;
 
 const WorkspaceContainer = styled.div`
   color: white;
@@ -62,33 +50,31 @@ const WorkspaceContainer = styled.div`
   align-items: center;
   padding-left: 19px;
   justify-content: space-between;
-  border-bottom: 1px solid #532753
-`
+  border-bottom: 1px solid #532753;
+`;
 
-const Name = styled.div`
-  
-`
+const Name = styled.div``;
 
 const NewMessage = styled.div`
   width: 36px;
   height: 36px;
   background: white;
-  color: #3F0E40;
-  fill: #3F0E40;
+  color: #3f0e40;
+  fill: #3f0e40;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
   margin-right: 20px;
   cursor: pointer;
-`
+`;
 
 const MainChannels = styled.div`
   padding-top: 20px;
-`
+`;
 
 const MainChannelItem = styled.div`
-  color: rgb(188,171,188);
+  color: rgb(188, 171, 188);
   display: grid;
   grid-template-columns: 15% auto;
   height: 28px;
@@ -96,15 +82,14 @@ const MainChannelItem = styled.div`
   padding-left: 19px;
   cursor: pointer;
   :hover {
-      background: #350D36;
+    background: #350d36;
   }
-  
-`
+`;
 
 const ChannelsContainer = styled.div`
-  color: rgb(188,171,188);
+  color: rgb(188, 171, 188);
   margin-top: 10px;
-`
+`;
 
 const NewChannelContainer = styled.div`
   display: flex;
@@ -113,19 +98,17 @@ const NewChannelContainer = styled.div`
   height: 28px;
   padding-left: 19px;
   padding-right: 12px;
-`
+`;
 
-const ChannelsList = styled.div`
-   
-`
+const ChannelsList = styled.div``;
 
 const Channel = styled.div`
-   height: 28px;
-   display: flex;
-   align-items: center;
-   padding-left: 19px;
-   cursor: pointer;
-   :hover {
-       background: #350D36
-   }
-`
+  height: 28px;
+  display: flex;
+  align-items: center;
+  padding-left: 19px;
+  cursor: pointer;
+  :hover {
+    background: #350d36;
+  }
+`;
