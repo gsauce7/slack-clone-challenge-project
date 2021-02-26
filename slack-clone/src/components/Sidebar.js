@@ -4,8 +4,18 @@ import styled from 'styled-components';
 import CreateIcon from '@material-ui/icons/Create';
 import { sidebarItemsData } from '../data/SidebarData';
 import AddIcon from '@material-ui/icons/Add';
+import db from '../firebase';
 
 function Sidebar(props) {
+  const addChannel = () => {
+    const promptName = prompt('Enter channel name');
+    if (promptName) {
+      db.collection('rooms').add({
+        name: promptName,
+      });
+    }
+  };
+
   return (
     <Container>
       <WorkspaceContainer>
@@ -25,7 +35,7 @@ function Sidebar(props) {
       <ChannelsContainer>
         <NewChannelContainer>
           <div>Channels</div>
-          <AddIcon />
+          <AddIcon onClick={addChannel} />
         </NewChannelContainer>
         <ChannelsList>
           {props.rooms.map((item) => (
