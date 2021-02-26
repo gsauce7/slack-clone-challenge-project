@@ -1,12 +1,26 @@
 import './App.css';
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Chat from './components/Chat';
 import Login from './components/Login';
 import styled from 'styled-components';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
+import db from './firebase';
 
 function App() {
+  const getChannels = () => {
+    db.collection('rooms').onSnapshot((snapshot) => {
+      snapshot.docs.map((doc) => {
+        console.log(doc.data());
+      });
+    });
+  };
+
+  useEffect(() => {
+    getChannels();
+  }, []);
+
   return (
     <div className='App'>
       <Router>
@@ -16,14 +30,13 @@ function App() {
             <Sidebar />
             <Switch>
               <Route path='/room'>
-                <Chat />            
+                <Chat />
               </Route>
               <Route path='/'>
                 <Login />
               </Route>
-              </Switch>
+            </Switch>
           </Main>
-          
         </Container>
       </Router>
     </div>
@@ -37,9 +50,8 @@ const Container = styled.div`
   height: 100vh;
   display: grid;
   grid-template-rows: 38px auto;
-`
+`;
 const Main = styled.div`
   display: grid;
   grid-template-columns: 260px auto;
-
-`
+`;
